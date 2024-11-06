@@ -1,0 +1,21 @@
+{
+  "name": "self_inspection",
+  "version": "1.0.0",
+  "description": "self-inspection",
+  "main": "webhook.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wendy",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^9.4.4",
+    "axios": "^1.7.7",
+    "crypto": "^1.0.1",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.1",
+    "mongodb": "^6.10.0",
+    "ngrok": "^5.0.0-beta.2",
+    "openssl": "^2.0.0"
+  }
+}
