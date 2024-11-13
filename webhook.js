@@ -138,6 +138,7 @@ async function handleEvent(event) {
     }
 
     if (event.type === 'message' && event.message.type === 'image' && currentTask[userId].currentStep === 'awaiting_images') {
+
         return client.getMessageContent(event.message.id)
             .then(stream => {
                 const buffer = [];
@@ -213,7 +214,11 @@ function generateExcel(userId) {
     });
 
     const filePath = path.join(fileDirectory, '自檢表.xlsx');
-    return workbook.xlsx.writeFile(filePath).then(() => filePath);
+    return workbook.xlsx.writeFile(filePath).then(() => {
+        // 在成功生成 Excel 文件後，清除 currentTask[userId] 的數據
+        delete currentTask[userId]; // 清除對應用戶的任務數據
+        return filePath;
+    });
 }
 // 設置静態文件路径，讓文件可以通过 HTTP 访问
 app.use('/files', express.static(fileDirectory));
@@ -221,7 +226,7 @@ app.use('/files', express.static(fileDirectory));
 // 回傳 Excel 文件
 function sendExcelFile(userId, replyToken) {
     return generateExcel(userId).then(filePath => {
-        const fileUrl = `https://039c-60-248-110-97.ngrok-free.app/files/自檢表.xlsx`;
+        const fileUrl = `https://e78c-60-248-110-97.ngrok-free.app/files/自檢表.xlsx`;
 
         return client.replyMessage(replyToken, {
             type: 'text',
